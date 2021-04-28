@@ -16,4 +16,16 @@ class TaskService
 
         return $tasks;
     }
+
+    public function createModel($data)
+    {
+        $model = TaskRepository::createModel($data);
+
+        $message = __('Task succesfully created.');
+
+        return [
+            'data' => $model->id,
+            'message' => $message
+        ];
+    }
 }

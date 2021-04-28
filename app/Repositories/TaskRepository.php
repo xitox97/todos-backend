@@ -10,4 +10,9 @@ class TaskRepository
     {
         return Task::all();
     }
+
+    public static function createModel($data)
+    {
+        return Task::create($data);
+    }
 }

@@ -6,6 +6,7 @@ use Exception;
 use App\Services\TaskService;
 use App\Services\Utils\ApiException;
 use App\Services\Utils\ResponseServices;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -25,6 +26,25 @@ class TaskController extends Controller
             return ResponseServices::error($exp->getMessage())->toJson();
         } catch (Exception $exp) {
             return ResponseServices::error($exp->getMessage())->toJson();
+        }
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $result = $this->taskService->createModel($request->all());
+            $data = $result['data'];
+            $message = $result['message'];
+
+            return ResponseServices::success($message)
+                ->data($data)
+                ->toJson();
+        } catch (ApiException $exp) {
+            return ResponseServices::error($exp->getMessage())
+                ->toJson();
+        } catch (Exception $exp) {
+            return ResponseServices::error($exp->getMessage())
+                ->toJson();
         }
     }
 }
