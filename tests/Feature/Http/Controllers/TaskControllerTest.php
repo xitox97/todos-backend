@@ -10,6 +10,10 @@ class TaskControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * Success Test
+     */
+
     /** @test */
     public function get_all_tasks_success()
     {
@@ -61,6 +65,33 @@ class TaskControllerTest extends TestCase
 
         $this->assertDatabaseHas('tasks', [
             'description' => 'Create CRUD API.',
+            'completed' => false
+        ]);
+    }
+
+    /**
+     * Fail Test
+     */
+
+    /** @test */
+    public function create_task_fail_due_to_invalid_input()
+    {
+        $data = [
+            'description' => 'aa.',
+            'completed' => false
+        ];
+
+        $this->postJson('/api/task', $data)
+            ->assertStatus(200)
+            ->assertJson([
+                'data' => [
+                    'description' => ['The description must be at least 5 characters.']
+                ],
+                'success' => false
+            ]);
+
+        $this->assertDatabaseMissing('tasks', [
+            'description' => 'aa.',
             'completed' => false
         ]);
     }
