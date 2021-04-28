@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\TaskRepository;
+use Illuminate\Support\Facades\Validator;
 
 class TaskService
 {
@@ -19,6 +20,11 @@ class TaskService
 
     public function createModel($data)
     {
+        Validator::make($data, [
+            'description' => 'required|min:5',
+            'completed' => 'boolean',
+        ])->validate();
+
         $model = TaskRepository::createModel($data);
 
         $message = __('Task succesfully created.');

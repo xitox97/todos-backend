@@ -21,6 +21,7 @@ class TaskController extends Controller
     {
         try {
             $result = $this->taskService->index();
+
             return ResponseServices::success()->data($result)->toJson();
         } catch (ApiException $exp) {
             return ResponseServices::error($exp->getMessage())->toJson();
@@ -36,14 +37,18 @@ class TaskController extends Controller
             $data = $result['data'];
             $message = $result['message'];
 
+            ray(1);
+
             return ResponseServices::success($message)
                 ->data($data)
                 ->toJson();
         } catch (ApiException $exp) {
+            ray(2);
             return ResponseServices::error($exp->getMessage())
                 ->toJson();
         } catch (Exception $exp) {
             return ResponseServices::error($exp->getMessage())
+                ->data($exp->validator->errors())
                 ->toJson();
         }
     }
