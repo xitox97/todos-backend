@@ -17,6 +17,46 @@ class TaskController extends Controller
         $this->taskService = $taskService;
     }
 
+    /**
+     * @OA\Get(
+     * path="/api/task",
+     * summary="Return all task from the system",
+     * description="Return all task",
+     * operationId="index",
+     * tags={"Task"},
+     * @OA\Response(
+     *    response=200,
+     *    description="successful operation",
+     *    @OA\JsonContent(
+     *      @OA\Property(
+     *      	property="data",
+     *          type="array",
+     *      	@OA\Items(
+     *       	     @OA\Property(
+     *       	         property="id",
+     *       	         description="id",
+     *       	         type="number",
+     *       	         example="1"
+     *       	      ),
+     *       	      @OA\Property(
+     *       	         property="description",
+     *       	       	 description="task description",
+     *       	         type="string",
+     *       	         example="Learn ReactJs."
+     *       	      ),
+     *       	      @OA\Property(
+     *       	         property="completed",
+     *       	         description="task complete or not",
+     *       	         type="boolean",
+     *       	         example=true
+     *       	       ),
+     *         	),
+     * 		),
+     *
+     *    )
+     * )
+     * )
+     */
     public function index()
     {
         try {
@@ -30,6 +70,65 @@ class TaskController extends Controller
         }
     }
 
+    /**
+* @OA\Post(
+*      path="/products/save",
+*      tags={"Product"},
+*      operationId="products",
+*      summary="Post bulk products",
+*      description="Return bulk products",
+*   	@OA\RequestBody(
+*       	required=true,
+*       	@OA\MediaType(
+*       	    mediaType="application/json",
+*       	    @OA\Schema(
+*       	        type="object",
+* 					@OA\Property(
+*      					property="products",
+*                       type="array",
+*      				    @OA\Items(
+*       	        		@OA\Property(
+*       	        		    property="first_name",
+*       	        		    description="First Name",
+*       	        		    type="string",
+*       	        		    example="Jhon"
+*       	        		),
+*       	        		@OA\Property(
+*       	        		    property="last_name",
+*       	        		    description="Last Name",
+*       	        		    type="string",
+*       	        		    example="Doe"
+*       	        		),
+*       	        		@OA\Property(
+*       	        		    property="email",
+*       	        		    description="Eamil",
+*       	        		    type="string",
+*       	        		    example="john@gmail.com"
+*       	        		),
+*       	        		@OA\Property(
+*       	        		    property="phone",
+*       	        		    description="Phone Number",
+*       	        		    type="string",
+*       	        		    example="+123456789"
+*       	        		),
+*       	        		@OA\Property(
+*       	        		    property="resume",
+*       	        		    description="Resume Base64",
+*       	        		    type="file",
+*       	        		    format="byte",
+*       	        		    example="base64"
+*       	        		),
+*         				),
+* 					),
+*       	    )
+*       	)
+*   	),
+*     	@OA\Response(
+*         response=200,
+*         description="Successful operation",
+*     ),
+* )
+*/
     public function store(Request $request)
     {
         try {

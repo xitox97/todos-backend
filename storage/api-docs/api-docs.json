@@ -1,0 +1,120 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Todo App",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/task": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Return all task from the system",
+                "description": "Return all task",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "id",
+                                                        "type": "number",
+                                                        "example": "1"
+                                                    },
+                                                    "description": {
+                                                        "description": "task description",
+                                                        "type": "string",
+                                                        "example": "Learn ReactJs."
+                                                    },
+                                                    "completed": {
+                                                        "description": "task complete or not",
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/save": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Post bulk products",
+                "description": "Return bulk products",
+                "operationId": "products",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "first_name": {
+                                                    "description": "First Name",
+                                                    "type": "string",
+                                                    "example": "Jhon"
+                                                },
+                                                "last_name": {
+                                                    "description": "Last Name",
+                                                    "type": "string",
+                                                    "example": "Doe"
+                                                },
+                                                "email": {
+                                                    "description": "Eamil",
+                                                    "type": "string",
+                                                    "example": "john@gmail.com"
+                                                },
+                                                "phone": {
+                                                    "description": "Phone Number",
+                                                    "type": "string",
+                                                    "example": "+123456789"
+                                                },
+                                                "resume": {
+                                                    "description": "Resume Base64",
+                                                    "type": "file",
+                                                    "format": "byte",
+                                                    "example": "base64"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
