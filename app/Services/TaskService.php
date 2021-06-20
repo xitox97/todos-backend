@@ -34,4 +34,14 @@ class TaskService
             'message' => $message
         ];
     }
+
+    public function updateModel($data, $id)
+    {
+        TaskRepository::updateModelByPk($data, $id);
+        $message = __('Task succesfully updated.');
+
+        return [
+            'message' => $message
+        ];
+    }
 }

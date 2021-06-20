@@ -15,4 +15,12 @@ class TaskRepository
     {
         return Task::create($data);
     }
+
+    public static function updateModelByPk($data, $id)
+    {
+        $task = Task::findOrFail($id);
+        $task->update($data);
+
+        return $task;
+    }
 }

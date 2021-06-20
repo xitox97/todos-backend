@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/task', [TaskController::class, 'index']);
 Route::post('/task', [TaskController::class, 'store']);
+Route::post('/task/{id}', [TaskController::class, 'update']);
