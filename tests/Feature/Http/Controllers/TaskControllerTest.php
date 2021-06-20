@@ -112,6 +112,38 @@ class TaskControllerTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function delete_task_success()
+    {
+        //Create new task
+        $task = Task::factory()->create([
+            'description' => 'Create CRUD API.',
+            'completed' => false
+        ]);
+
+        //Check record exists in DB
+        $this->assertDatabaseHas('tasks', [
+            'id' => $task->id,
+            'description' => 'Create CRUD API.',
+            'completed' => false
+        ]);
+
+        //call the delete api
+        $this->deleteJson('/api/task/'.$task->id)
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'message' => "Task succesfully deleted."
+            ]);
+
+        //Check record not exists in DB
+        $this->assertDatabaseMissing('tasks', [
+            'id' => $task->id,
+            'description' => 'Create CRUD API.',
+            'completed' => false
+        ]);
+    }
+
     /**
      * Fail Test
      */
@@ -165,5 +197,17 @@ class TaskControllerTest extends TestCase
             'description' => 'Update task not exists in db.',
             'completed' => true
         ]);
+    }
+
+    /** @test */
+    public function delete_task_failed_due_to_task_not_exists()
+    {
+        //call the delete api
+        $this->deleteJson('/api/task/1234')
+            ->assertStatus(200)
+            ->assertJson([
+                'success' => false,
+                'message' => "Task with Id 1234 is not exists."
+            ]);
     }
 }

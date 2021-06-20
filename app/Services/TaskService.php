@@ -44,4 +44,15 @@ class TaskService
             'message' => $message
         ];
     }
+
+    public function deleteModel($id)
+    {
+        TaskRepository::deleteModelByPk($id);
+
+        $message = __('Task succesfully deleted.');
+
+        return [
+            'message' => $message
+        ];
+    }
 }

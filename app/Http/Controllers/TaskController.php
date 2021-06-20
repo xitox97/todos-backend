@@ -171,4 +171,26 @@ class TaskController extends Controller
                 ->toJson();
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            $result = $this->taskService->deleteModel($id);
+
+            return ResponseServices::success($result['message'])
+                ->toJson();
+        } catch (ApiException $exp) {
+            return ResponseServices::error($exp->getMessage())
+                ->toJson();
+        } catch (Exception $exp) {
+            if($exp instanceof ModelNotFoundException) {
+                return ResponseServices::error("Task with Id {$id} is not exists.")
+                    ->toJson();
+            }
+
+            return ResponseServices::error($exp->getMessage())
+                ->data($exp->getMessage())
+                ->toJson();
+        }
+    }
 }

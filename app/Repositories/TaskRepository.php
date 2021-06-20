@@ -23,4 +23,10 @@ class TaskRepository
 
         return $task;
     }
+
+    public static function deleteModelByPk($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+    }
 }
